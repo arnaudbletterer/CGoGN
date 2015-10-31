@@ -312,8 +312,8 @@ public:
 	void updateBB(const VertexAttribute<VEC3, MAP>& position);
 	void updateBBDrawer();
 
-    VEC3 getBBmin() { return m_bb.min(); }
-    VEC3 getBBmax() { return m_bb.max(); }
+    qglviewer::Vec getBBmin() { return qglviewer::Vec(m_bb.min()[0], m_bb.min()[1], m_bb.min()[2]); }
+    qglviewer::Vec getBBmax() { return qglviewer::Vec(m_bb.max()[0], m_bb.max()[1], m_bb.max()[2]); }
 
 	bool transformedBB(qglviewer::Vec& bbMin, qglviewer::Vec& bbMax);
 

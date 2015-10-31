@@ -45,7 +45,8 @@ View::View(const QString& name, SCHNApps* s, const QGLWidget* shareWidget) :
 	m_frameDrawer(NULL),
 	m_textureWallpaper(NULL),
 	m_shaderWallpaper(NULL),
-	b_saveSnapshots(false)
+	b_saveSnapshots(false),
+	m_noUpdate(false)
 {
 	++viewCount;
 
@@ -413,70 +414,79 @@ void View::init()
 
 void View::preDraw()
 {
-	if (Utils::GLSLShader::CURRENT_OGL_VERSION >= 3)
-		makeCurrent();
-	m_currentCamera->setScreenWidthAndHeight(width(), height());
+	if(!m_noUpdate)
+	{
+		if (Utils::GLSLShader::CURRENT_OGL_VERSION >= 3)
+			makeCurrent();
+		m_currentCamera->setScreenWidthAndHeight(width(), height());
 
-	QGLViewer::preDraw();
+		QGLViewer::preDraw();
+	}
 }
 
 void View::draw()
 {
-	if (Utils::GLSLShader::CURRENT_OGL_VERSION >= 3)
+	if(!m_noUpdate)
 	{
-		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LESS);
-		glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
-	}
-
-	m_shaderWallpaper->draw();
-
-	const CameraSet& cams = m_schnapps->getCameraSet();
-	QList<Camera*> lc = cams.values();
-	foreach (Camera* camera, lc)
-	{
-		if (camera != m_currentCamera)
+		if (Utils::GLSLShader::CURRENT_OGL_VERSION >= 3)
 		{
-			if (camera->getDraw()) camera->draw();
-			if (camera->getDrawPath()) camera->drawAllPaths();
+			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(GL_LESS);
+			glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
 		}
-	}
 
-	glm::mat4 mm = getCurrentModelViewMatrix();
-	glm::mat4 pm = getCurrentProjectionMatrix();
+		m_shaderWallpaper->draw();
 
-	MapHandlerGen* selectedMap = m_schnapps->getSelectedMap();
-
-	foreach(MapHandlerGen* map, l_maps)
-	{
-		glm::mat4 map_mm = mm * map->getFrameMatrix();
-
-		if(map == selectedMap)
+		const CameraSet& cams = m_schnapps->getCameraSet();
+		QList<Camera*> lc = cams.values();
+		foreach (Camera* camera, lc)
 		{
-			Utils::Drawer* bbDr = map->getBBDrawer();
-			if(bbDr)
-				bbDr->updateMatrices(pm, map_mm);
-			map->drawBB();
+			if (camera != m_currentCamera)
+			{
+				if (camera->getDraw()) camera->draw();
+				if (camera->getDrawPath()) camera->drawAllPaths();
+			}
+		}
+
+		glm::mat4 mm = getCurrentModelViewMatrix();
+		glm::mat4 pm = getCurrentProjectionMatrix();
+
+		MapHandlerGen* selectedMap = m_schnapps->getSelectedMap();
+
+		foreach(MapHandlerGen* map, l_maps)
+		{
+			glm::mat4 map_mm = mm * map->getFrameMatrix();
+
+			if(map == selectedMap)
+			{
+				Utils::Drawer* bbDr = map->getBBDrawer();
+				if(bbDr)
+					bbDr->updateMatrices(pm, map_mm);
+				map->drawBB();
+			}
+
+			foreach(PluginInteraction* plugin, l_plugins)
+			{
+				foreach(Utils::GLSLShader* shader, plugin->getShaders())
+					shader->updateMatrices(pm, map_mm);
+				plugin->drawMap(this, map);
+			}
 		}
 
 		foreach(PluginInteraction* plugin, l_plugins)
-		{
-			foreach(Utils::GLSLShader* shader, plugin->getShaders())
-				shader->updateMatrices(pm, map_mm);
-			plugin->drawMap(this, map);
-		}
+			plugin->draw(this);
 	}
-
-	foreach(PluginInteraction* plugin, l_plugins)
-		plugin->draw(this);
 }
 
 void View::postDraw()
 {
-	if(isSelectedView())
-		drawFrame();
-	drawButtons();
-	QGLViewer::postDraw();
+	if(!m_noUpdate)
+	{
+		if(isSelectedView())
+			drawFrame();
+		drawButtons();
+		QGLViewer::postDraw();
+	}
 }
 
 void View::resizeGL(int width, int height)

@@ -50,6 +50,8 @@ public:
 	void hideDialogs();
 
 public slots:
+	void setNoUpdate(bool update) { m_noUpdate = update; }
+	
 	QString getName() { return m_name; }
 	SCHNApps* getSCHNApps() const { return m_schnapps; }
 
@@ -175,6 +177,7 @@ protected:
 	Utils::ShaderWallPaper* m_shaderWallpaper;
 
 	bool b_saveSnapshots;
+	bool m_noUpdate;
 
 	inline int pixelRatio() const
 	{
