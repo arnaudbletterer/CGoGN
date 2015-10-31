@@ -118,6 +118,14 @@ void MapHandler<PFP>::updateBB()
 }
 
 template <typename PFP>
+void MapHandler<PFP>::updateBB(const VertexAttribute<VEC3, MAP>& position)
+{
+	m_bb = CGoGN::Algo::Geometry::computeBoundingBox<PFP>(*(static_cast<MAP*>(m_map)), position);
+
+	updateBBDrawer();
+}
+
+template <typename PFP>
 void MapHandler<PFP>::updateBBDrawer()
 {
 	if (!m_bbDrawer)

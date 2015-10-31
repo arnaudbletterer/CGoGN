@@ -55,6 +55,31 @@ template <typename PFP>
 bool exportPLY(typename PFP::MAP& map, const VertexAttribute<typename PFP::VEC3, typename PFP::MAP>& position, const char* filename, const bool binary) ;
 
 /**
+* export the vertices of the map into a PLY file
+* @param the_map map to be exported
+* @param position the position container
+* @param filename filename of ply file
+* @param binary write in binary mode
+* @return true
+*/
+template <typename PFP>
+bool exportPLYVert(typename PFP::MAP& map, const VertexAttribute<typename PFP::VEC3, typename PFP::MAP>& position, const char* filename, const bool binary) ;
+
+/**
+* export the vertices of multiple maps into a single PLY file
+* @param maps vector of the maps to be exported
+* @param positions vector of the different position containers
+* @param filename filename of ply file
+* @param binary write in binary mode
+* @return true
+*/
+template <typename PFP>
+bool exportPLYVertMaps(std::vector<typename PFP::MAP*>& maps,
+					   const std::vector<std::vector<std::reference_wrapper<VertexAttribute<typename PFP::VEC3, typename PFP::MAP>>>>& attributeHandlers,
+					   const char* filename,
+					   const bool binary) ;
+
+/**
 * export the map into a PLY file
 * @param the_map map to be exported
 * @param vertexAttrNames the vertex attribute names

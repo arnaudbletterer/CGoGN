@@ -55,8 +55,8 @@ public slots:
 
 	bool isSelectedView() const { return m_schnapps->getSelectedView() == this; }
 
-	void setCurrentCamera(Camera* c);
-	void setCurrentCamera(const QString& name);
+    void setCurrentCamera(Camera* c, bool toUpdate = true);
+    void setCurrentCamera(const QString& name, bool toUpdate = true);
 
 	Camera* getCurrentCamera() const { return m_currentCamera; }
 	bool usesCamera(Camera* c) const { return m_currentCamera == c; }

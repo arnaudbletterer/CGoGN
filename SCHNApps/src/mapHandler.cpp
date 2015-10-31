@@ -39,7 +39,7 @@ MapHandlerGen::~MapHandlerGen()
  * MANAGE ATTRIBUTES
  *********************************************************/
 
-void MapHandlerGen::notifyAttributeModification(const AttributeHandlerGen& attr)
+void MapHandlerGen::notifyAttributeModification(const AttributeHandlerGen& attr, bool update)
 {
 	QString nameAttr = QString::fromStdString(attr.name());
 
@@ -52,11 +52,14 @@ void MapHandlerGen::notifyAttributeModification(const AttributeHandlerGen& attr)
 	DEBUG_EMIT("attributeModified");
 	emit(attributeModified(attr.getOrbit(), nameAttr));
 
-	foreach(View* view, l_views)
-		view->updateGL();
+    if(update)
+    {
+        foreach(View* view, l_views)
+            view->updateGL();
+    }
 }
 
-void MapHandlerGen::notifyConnectivityModification()
+void MapHandlerGen::notifyConnectivityModification(bool update)
 {
 	if (m_render)
 	{
@@ -75,8 +78,11 @@ void MapHandlerGen::notifyConnectivityModification()
 	DEBUG_EMIT("connectivityModified");
 	emit(connectivityModified());
 
-	foreach(View* view, l_views)
-		view->updateGL();
+    if(update)
+    {
+        foreach(View* view, l_views)
+            view->updateGL();
+    }
 }
 
 void MapHandlerGen::clear(bool removeAttrib)

@@ -43,6 +43,11 @@ public slots:
 	const QList<View*>& getLinkedViews() const { return l_views; }
 	bool isLinkedToView(View* view) const { return l_views.contains(view); }
 
+    void setZNear(float z_near) { m_zNear = z_near; }
+    void setZFar(float z_far) { m_zFar = z_far; }
+
+    void setStandard(bool standard) { m_standard = standard; }
+
 	void setProjectionType(int t);
 	void setDraw(bool b);
 	void setDrawPath(bool b);
@@ -74,8 +79,12 @@ protected:
 
 	bool b_draw;
 	bool b_drawPath;
+    bool m_standard;
 
 	bool b_fitToViewsBoundingBox;
+
+    float m_zNear;
+    float m_zFar;
 };
 
 } // namespace SCHNApps

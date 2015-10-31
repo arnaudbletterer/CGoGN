@@ -158,8 +158,8 @@ public:
 	inline QString getAttributeTypeName(unsigned int orbit, const QString& nameAttr) const;
 	const AttributeSet& getAttributeSet(unsigned int orbit) const { return m_attribs[orbit]; }
 
-	void notifyAttributeModification(const AttributeHandlerGen& attr);
-	void notifyConnectivityModification();
+    void notifyAttributeModification(const AttributeHandlerGen& attr, bool update = true);
+    void notifyConnectivityModification(bool update = true);
 
 	void clear(bool removeAttrib);
 
@@ -309,7 +309,11 @@ public:
 	void drawBB();
 
 	void updateBB();
+	void updateBB(const VertexAttribute<VEC3, MAP>& position);
 	void updateBBDrawer();
+
+    VEC3 getBBmin() { return m_bb.min(); }
+    VEC3 getBBmax() { return m_bb.max(); }
 
 	bool transformedBB(qglviewer::Vec& bbMin, qglviewer::Vec& bbMax);
 
