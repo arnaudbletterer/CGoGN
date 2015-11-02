@@ -46,6 +46,30 @@ public slots:
     void setZNear(float z_near) { m_zNear = z_near; }
     void setZFar(float z_far) { m_zFar = z_far; }
 
+    virtual qreal zNear() const
+    {
+        if(m_standard)
+        {
+            return m_zNear;
+        }
+        else
+        {
+            return qglviewer::Camera::zNear();
+        }
+    }
+
+    virtual qreal zFar() const
+    {
+        if(m_standard)
+        {
+            return m_zFar;
+        }
+        else
+        {
+            return qglviewer::Camera::zFar();
+        }
+    }
+
     void setStandard(bool standard) { m_standard = standard; }
 
 	void setProjectionType(int t);

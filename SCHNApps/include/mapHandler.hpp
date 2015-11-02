@@ -95,7 +95,7 @@ template <typename PFP>
 void MapHandler<PFP>::updateBB()
 {
 	if (m_bbVertexAttribute)
-	{
+    {
 		MAP* map = static_cast<MAP*>(m_map);
 		VertexAttribute<VEC3, MAP> bbVertexAttribute(map, dynamic_cast<AttributeMultiVector<VEC3>*>(m_bbVertexAttribute));
 
@@ -106,7 +106,7 @@ void MapHandler<PFP>::updateBB()
 			m_bbDiagSize = 0;
 	}
 	else
-	{
+    {
 		m_bb.reset();
 		m_bbDiagSize = 0;
 	}
