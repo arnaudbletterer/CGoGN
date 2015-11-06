@@ -17,7 +17,7 @@ Camera::Camera(const QString& name, SCHNApps* s) :
 	b_draw(false),
 	b_drawPath(false),
     b_fitToViewsBoundingBox(true),
-    m_standard(false)
+    m_standard(true)
 {
 	++cameraCount;
 	connect(this->frame(), SIGNAL(modified()), this, SLOT(frameModified()));

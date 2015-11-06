@@ -48,7 +48,7 @@ public slots:
 
     virtual qreal zNear() const
     {
-        if(m_standard)
+        if(!m_standard)
         {
             return m_zNear;
         }
@@ -60,7 +60,7 @@ public slots:
 
     virtual qreal zFar() const
     {
-        if(m_standard)
+        if(!m_standard)
         {
             return m_zFar;
         }

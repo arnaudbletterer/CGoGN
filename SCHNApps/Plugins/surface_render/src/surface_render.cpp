@@ -110,8 +110,8 @@ void Surface_Render_Plugin::drawMap(View* view, MapHandlerGen* map)
         }
 
 		if(p.renderVertices)
-		{
-			m_pointSprite->setSize(map->getBBdiagSize() / 200.0f * p.verticesScaleFactor);
+        {
+            m_pointSprite->setSize(map->getBBdiagSize() / (200.0f * p.verticesScaleFactor));
 			m_pointSprite->setAttributePosition(p.positionVBO);
 			m_pointSprite->setColor(p.vertexColor);
 			map->draw(m_pointSprite, CGoGN::Algo::Render::GL2::POINTS);
@@ -156,7 +156,7 @@ void Surface_Render_Plugin::mapAdded(MapHandlerGen *map)
 {
 	DEBUG_SLOT();
 	connect(map, SIGNAL(vboAdded(Utils::VBO*)), this, SLOT(vboAdded(Utils::VBO*)));
-	connect(map, SIGNAL(vboRemoved(Utils::VBO*)), this, SLOT(vboRemoved(Utils::VBO*)));
+    connect(map, SIGNAL(vboRemoved(Utils::VBO*)), this, SLOT(vboRemoved(Utils::VBO*)));
 }
 
 void Surface_Render_Plugin::mapRemoved(MapHandlerGen *map)
