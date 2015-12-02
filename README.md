@@ -14,9 +14,9 @@ Linux
 =====
 Dependencies
 ------------
-* install for following package cmake cmake-curses-gui cmake-qt-gui libXi-dev libXmu-dev libglew-dev zlib1g-dev uuid-dev libgsl0-dev libsuitesparse-dev python27
+* install for following package cmake cmake-curses-gui cmake-qt-gui libXi-dev libXmu-dev libglew-dev zlib1g-dev uuid-dev libgsl0-dev libsuitesparse-dev python2.7-dev
 * for Qt4: libqt4-dev qt4-dev-tools qtcreator
-* for Qt5: qt5-default qtbase5-dev-tools qtcreator
+* for Qt5: qt5-default qtbase5-dev-tools qtcreator libqt5svg5-dev libqt5opengl5-dev
 
 **Supported compilers: g++ 4.8 or greater**
 
@@ -78,7 +78,10 @@ Dependencies
 ------------
 * install (or compile) Qt (choose 32/64 bits)
 * install python 2.7 (choose 32/64 bits) (Needed for SCHNApps)
-* Other Windows dependencies are furnished at http://cgogn.unistra.fr/Dependencies/
+* Other Windows dependencies are furnished at:
+  * http://cgogn.unistra.fr/Dependencies/dependencies.txt
+  * http://cgogn.unistra.fr/Dependencies/windows_dependencies32.zip
+  * http://cgogn.unistra.fr/Dependencies/windows_dependencies64.zip
 
 **Supported compilers: Visual C++ 2013 (12.0) or greater**
 
