@@ -109,7 +109,7 @@ View::~View()
 	delete m_dialogCameras;
 }
 
-void View::setCurrentCamera(Camera* c, bool toUpdate)
+void View::setCurrentCamera(Camera* c)
 {
 //	DEBUG_SLOT();
 	if(c != m_currentCamera && c)
@@ -153,18 +153,15 @@ void View::setCurrentCamera(Camera* c, bool toUpdate)
 		}
 
 		m_currentCamera->fitToViewsBoundingBox();
-        if(toUpdate)
-        {
-            updateGL();
-        }
+		updateGL();
 	}
 }
 
-void View::setCurrentCamera(const QString& name, bool toUpdate)
+void View::setCurrentCamera(const QString& name)
 {	
 	Camera* c = m_schnapps->getCamera(name);
 	if(c)
-        setCurrentCamera(c, toUpdate);
+        setCurrentCamera(c);
 }
 
 bool View::usesCamera(const QString& name) const

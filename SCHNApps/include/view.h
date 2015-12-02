@@ -81,13 +81,13 @@ public slots:
 	 * @brief set the current camera of the view
 	 * @param c the camera ptr
 	 */
-	void setCurrentCamera(Camera* c, bool toUpdate = true);
+	void setCurrentCamera(Camera* c);
 
 	/**
 	* @brief [PYTHON] set the current camera of the view
 	* @param name the name of camera
 	*/
-	void setCurrentCamera(const QString& name, bool toUpdate = true);
+	void setCurrentCamera(const QString& name);
 
 	/**
 	* @brief [PYTHON] get the current camera of the view
