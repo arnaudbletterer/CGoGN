@@ -111,7 +111,7 @@ void Surface_Render_Plugin::drawMap(View* view, MapHandlerGen* map)
 
 		if(p.renderVertices)
         {
-            m_pointSprite->setSize(map->getBBdiagSize() / (200.0f * p.verticesScaleFactor));
+            m_pointSprite->setSize(p.verticesScaleFactor*map->getBBdiagSize()/100.f);
 			m_pointSprite->setAttributePosition(p.positionVBO);
 			m_pointSprite->setColor(p.vertexColor);
 			map->draw(m_pointSprite, CGoGN::Algo::Render::GL2::POINTS);

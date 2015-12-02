@@ -108,9 +108,9 @@ void Surface_Render_DockTab::verticesScaleFactorChanged(int i)
 		MapHandlerGen* map = m_schnapps->getSelectedMap();
 		if (view && map)
 		{
-			m_plugin->h_viewParameterSet[view][map].verticesScaleFactor = i / 50.0;
+			m_plugin->h_viewParameterSet[view][map].verticesScaleFactor = i / (float)slider_verticesScaleFactor->maximum();
 			view->updateGL();
-			m_plugin->pythonRecording("changeVerticesScaleFactor", "", view->getName(), map->getName(), i / 50.0);
+			m_plugin->pythonRecording("changeVerticesScaleFactor", "", view->getName(), map->getName(), m_plugin->h_viewParameterSet[view][map].verticesScaleFactor);
 		}
 	}
 }
@@ -358,7 +358,7 @@ void Surface_Render_DockTab::updateMapParameters()
 		}
 
 		check_renderVertices->setChecked(p.renderVertices);
-		slider_verticesScaleFactor->setSliderPosition(p.verticesScaleFactor * 50.0);
+		slider_verticesScaleFactor->setSliderPosition(p.verticesScaleFactor * slider_verticesScaleFactor->maximum());
 		check_renderEdges->setChecked(p.renderEdges);
 		check_renderFaces->setChecked(p.renderFaces);
 		radio_flatShading->setChecked(p.faceStyle == MapParameters::FLAT);
