@@ -150,6 +150,6 @@ TARGET_LINK_LIBRARIES( SCHNApps
 
 qt_use_modules(SCHNApps Core Gui OpenGL Xml Svg)
 
-IF(IS_DIRECTORY ${SCHNApps_ROOT_DIR}/../../Plugins)
-	ADD_SUBDIRECTORY(${SCHNApps_ROOT_DIR}/../../Plugins ExtPlugins)
-ENDIF(IS_DIRECTORY ${SCHNApps_ROOT_DIR}/../../Plugins)
+IF(IS_DIRECTORY ${SCHNApps_ROOT_DIR}/../../external/Plugins)
+	ADD_SUBDIRECTORY(${SCHNApps_ROOT_DIR}/../../external/Plugins ExtPlugins)
+ENDIF(IS_DIRECTORY ${SCHNApps_ROOT_DIR}/../../external/Plugins)
